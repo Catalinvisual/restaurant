@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from '../api/axios'; // 👈 Import corect al instanței configurate
 import Header from '../pages/Header'; // Asigură-te că Header.js există
 
 function Login() {
@@ -8,7 +8,7 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post('http://localhost:5000/auth/login', {
+      const res = await axios.post('/auth/login', { // 👈 Folosim endpoint relativ
         email,
         password,
       });

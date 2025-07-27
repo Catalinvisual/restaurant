@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from '../api/axios'; // 👈 Import corect din fișierul configurat de tine
 import Header from '../pages/Header';
 
 function AddItem() {
@@ -9,7 +9,7 @@ function AddItem() {
 
   const handleSubmit = async () => {
     try {
-      await axios.post('http://localhost:5000/api/menu', {
+      await axios.post('/menu', { // 👈 Nu mai trebuie URL complet — se adaugă automat
         name,
         description,
         price: parseFloat(price)
@@ -26,13 +26,13 @@ function AddItem() {
   return (
     <>
       <Header />
-    <div>
-      <h2>Adaugă produs în meniu</h2>
-      <input placeholder="Nume produs" value={name} onChange={e => setName(e.target.value)} />
-      <input placeholder="Descriere" value={description} onChange={e => setDescription(e.target.value)} />
-      <input type="number" placeholder="Preț" value={price} onChange={e => setPrice(e.target.value)} />
-      <button onClick={handleSubmit}>Adaugă</button>
-    </div>
+      <div>
+        <h2>Adaugă produs în meniu</h2>
+        <input placeholder="Nume produs" value={name} onChange={e => setName(e.target.value)} />
+        <input placeholder="Descriere" value={description} onChange={e => setDescription(e.target.value)} />
+        <input type="number" placeholder="Preț" value={price} onChange={e => setPrice(e.target.value)} />
+        <button onClick={handleSubmit}>Adaugă</button>
+      </div>
     </>
   );
 }

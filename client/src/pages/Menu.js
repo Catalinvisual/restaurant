@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Header from '../pages/Header'; // corectăm calea
+import axios from '../api/axios'; // 👈 Import instanță configurată cu baseURL
+import Header from '../pages/Header';
 
 function Menu() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/menu').then((res) => {
+    axios.get('/menu').then((res) => { // 👈 Endpoint relativ
       setItems(res.data);
     });
   }, []);
 
   const deleteItem = async (id) => {
-    await axios.delete(`http://localhost:5000/api/menu/${id}`);
+    await axios.delete(`/menu/${id}`); // 👈 Se atașează automat la baseURL
     setItems(prev => prev.filter(item => item.id !== id));
   };
 
