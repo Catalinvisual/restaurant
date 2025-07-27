@@ -8,7 +8,10 @@ const app = express();
 
 // 🔐 CORS configurat specific pentru frontend-ul Render
 const corsOptions = {
-  origin: 'https://restaurant-frontend-00rz.onrender.com',
+  origin: [
+    'https://restaurant-frontend-00rz.onrender.com',
+    'http://localhost:3000',
+  ],
   credentials: true,
 };
 
