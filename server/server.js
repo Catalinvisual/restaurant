@@ -6,18 +6,21 @@ const pool = require('./db');
 
 const app = express();
 
- 
+// 🔐 CORS configurat specific pentru frontend-ul Render
+const corsOptions = {
+  origin: 'https://restaurant-frontend-00rz.onrender.com',
+  credentials: true,
+};
 
-// Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
-// Log fallback pentru PORT
+// ⚠️ Log fallback pentru PORT
 if (!process.env.PORT) {
   console.warn('⚠️ PORT nedefinit în .env — se folosește fallback 5000');
 }
 
-// Test rapid conexiune DB
+// 🧪 Test conexiune DB
 pool.query('SELECT 1', (err) => {
   if (err) {
     console.error('❌ Conexiunea la DB a eșuat:', err);
@@ -26,23 +29,23 @@ pool.query('SELECT 1', (err) => {
   }
 });
 
-// Rute
+// 🔀 Rute definite
 app.use('/auth', require('./routes/auth'));
 app.use('/api', require('./routes/menu'));
 app.use('/api', require('./routes/cart'));
 
-// Rută simplă test
+// ✅ Ruta test simplă
 app.get('/', (req, res) => {
   res.send('Serverul funcționează perfect! 🍝');
 });
 
-// Pornire server
+// 🚀 Pornire server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`✅ Serverul rulează pe http://localhost:${PORT}`);
 });
 
-// Handler erori globale
+// 🧯 Handler erori globale
 process.on('unhandledRejection', (err) => {
   console.error('🔴 Promise negestionat:', err);
 });
